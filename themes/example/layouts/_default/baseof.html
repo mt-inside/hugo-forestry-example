@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<!-- If it exists, this file is used as the base of every layout page (except the homepage; layouts/index.html).
+That way you don't have to copy&paste full html boilerplate to each one.
+Instead, just define a block in them called `main`
+-->
+
+<html lang="en">
+    <head>
+        {{- partial "head.html" . -}}
+    </head>
+    <body>
+        <div class="container">
+        {{- partial "header.html" . -}}
+	{{- block "main" . }}{{- end }}
+        {{- partial "footer.html" . -}}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,21 @@
+{{ define "main" }}
+
+<h1>The list of content type *</h1>
+
+<!-- doesn't seem to be possible to supply this -->
+<p>{{ .Content }}</p>
+
+<!-- from: content/*/*.md -->
+{{ range .Paginator.Pages }}
+<hr />
+<p><a href="{{ .Permalink }}"><b>{{ .Title }}</b></a></p>
+<p><i>{{ .Description | markdownify }}</i></p>
+<p>
+{{ .Summary | markdownify }}
+{{ if .Truncated }} ...tuncated {{end}}
+</p>
+{{ end }}
+
+<hr />
+
+{{ end }}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<!-- The homepage
+Uniquely, does not use <theme>/layouts/_default/baseof.html
+-->
+
+<html lang="en">
+    <head>
+        {{- partial "head.html" . -}}
+
+        {{ $one := resources.Get "src/one.ts" }}
+        {{ $two := resources.Get "src/two.ts" }}
+        {{ $global := slice $one $two | resources.Concat "src/global.ts" }}
+        {{ $script := $global | js.Build | minify | fingerprint "sha512" }}
+        <script src="{{ $script.Permalink }}" integrity="{{ $script.Data.Integrity }}"></script>
+    </head>
+    <body>
+        {{ partial "header.html" . }}
+
+	<!-- from: content/_index.md -->
+        {{ .Content }}
+
+        <p id="one"></p>
+        <p id="two"></p>
+
+        <p>Thanks to our sponsors:
+        <ul>
+        {{ range .Site.Data.sponsors }}
+            <li>{{ .name }} for {{ .value }}</li>
+        {{ end }}
+        </ul>
+        </p>
+    </body>
+</html>

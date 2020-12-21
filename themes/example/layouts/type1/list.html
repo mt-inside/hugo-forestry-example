@@ -1,0 +1,23 @@
+{{ define "main" }}
+
+<h1>The list of content type1</h1>
+
+<!-- from: content/type1/_index.md -->
+<p>{{ .Content }}</p>
+
+<!-- from: content/type1/*.md -->
+{{ range .Paginator.Pages }}
+
+<hr />
+<p><a href="{{ .Permalink }}"><b>{{ .Title }}</b></a></p>
+<p><i>{{ .Description | markdownify }}</i></p>
+<p>
+{{ .Summary | markdownify }}
+{{ if .Truncated }} ...tuncated {{end}}
+</p>
+
+{{ end }}
+
+<hr />
+
+{{ end }}

@@ -1,0 +1,17 @@
+baseURL: http://example.org/
+languageCode: en-us
+title: My New Hugo Site
+theme: example
+
+menu:
+  header:
+    - name: Home
+      url: "/"
+    - name: Type1
+      url: "/type1"
+    - name: Type2
+      url: "/type2"
+    - name: TypeSingle
+      url: "/typeSingle"
+    - name: TypeSingle2
+      url: "/typeSingle2"
