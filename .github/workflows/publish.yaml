@@ -22,8 +22,6 @@ jobs:
         # Interestingly, a shell-style subst also works here, but it's not GH Actions doing it, so my theory is that it's passed verbatim to docker, but the entrypoint is bash, which evalates this string as a shell expression and does the expansion cause it's in the runner's env
         args: build/build.sh ${{ secrets.GCS_BUCKET }}
 
-    # TODO put build command into an npm script, use yarn run here and forestry and make
-
     - name: Setup gcloud / gsutil
       uses: google-github-actions/setup-gcloud@v0.2.0
       with:
