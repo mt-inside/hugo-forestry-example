@@ -24,6 +24,11 @@ jobs:
         service_account_key: ${{ secrets.GCS_SA_KEY }}
         export_default_credentials: true
 
+    # Alternative would be an image containing hugo, and doing the build in that
+    - name: Install Hugo
+      run: |-
+        sudo apt install hugo
+
     - name: Build
       run: |-
         hugo build -b https://$GCS_BUCKET -s . -d public
@@ -32,6 +37,7 @@ jobs:
 
     # TODO put build command into an npm script, use yarn run here and forestry (see forestry for command ref)
     # TODO status badge
+    # TODO forestry image
     # TODO go home TODO go home TODO go home TODO go home
 
     - name: Deploy
