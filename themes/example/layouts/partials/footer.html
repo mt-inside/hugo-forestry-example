@@ -1,1 +1,6 @@
-<p>Shared footer, eg copyright {{ .Site.Data.legal.copyright }}</p>
+<p>
+Shared footer<br>
+Copyright {{ .Site.Data.legal.copyright }}<br>
+Built with Hugo {{ hugo.Version }} on {{ now.Format "2006-01-02 15:04:05" }}<br>
+{{- if .GitInfo -}}Last commit: {{ .GitInfo.AbbreviatedHash }} by {{ .GitInfo.AuthorName }} on {{ .GitInfo.AuthorDate }}{{- end -}}
+</p>
