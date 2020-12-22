@@ -24,7 +24,7 @@ jobs:
         HUGO_VERSION: 0.79.1
       with:
         # Interestingly, a shell-style subst also works here, but it's not GH Actions doing it, so my theory is that it's passed verbatim to docker, but the entrypoint is bash, which evalates this string as a shell expression and does the expansion cause it's in the runner's env
-        args: hugo -b https://${{ secrets.GCS_BUCKET }} -s . -d public
+        args: hugo --enableGitInfo -b https://${{ secrets.GCS_BUCKET }} -s . -d public
 
     # TODO put build command into an npm script, use yarn run here and forestry (see forestry for command ref)
     # TODO Separate stages into jobs, depend, badges
