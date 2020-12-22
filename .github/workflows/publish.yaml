@@ -5,30 +5,35 @@ on:
     branches:
       - master
 
-steps:
-- name: Checkout
-  uses: actions/checkout@v2
+jobs:
+  build_and_publish:
+    name: Build and Publish to GCS
+    runs-on: ubuntu-latest
 
-- name: dbg
-  run: |-
-    echo "x${{secrets.GCS_SA_KEY}}x"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
 
-- name: Setup gcloud / gsutil
-  uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-  with:
-    service_account_key: ${{ secrets.GCS_SA_KEY }}
-    project_id: domains-cceouond
-    export_default_credentials: true
+    - name: dbg
+      run: |-
+        echo "x${{secrets.GCS_SA_KEY}}x"
 
-- name: Build
-  run: |-
-    mkdir public
-    echo "hello!" > public/index.html
+    - name: Setup gcloud / gsutil
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        service_account_key: ${{ secrets.GCS_SA_KEY }}
+        project_id: domains-cceouond
+        export_default_credentials: true
 
-# TODO build
-# TODO put build command into an npm script, use yarn run here and forestry (see forestry for command ref)
-# TODO status badge
+    - name: Build
+      run: |-
+        mkdir public
+        echo "hello!" > public/index.html
 
-- name: Deploy
-  run: |-
-    gsutil -m rsync -R public gs://test.mt165.training
+    # TODO build
+    # TODO put build command into an npm script, use yarn run here and forestry (see forestry for command ref)
+    # TODO status badge
+
+    - name: Deploy
+      run: |-
+        gsutil -m rsync -R public gs://test.mt165.training
