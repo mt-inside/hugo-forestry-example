@@ -29,6 +29,7 @@ jobs:
         service_account_key: ${{ secrets.GCS_SA_KEY }}
         export_default_credentials: true
 
+    # Could `hugo deploy` but for a start that would mean hard-coding (or frobbing) the bucket URL into the Hugo config file
     - name: Deploy
       env:
         GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
