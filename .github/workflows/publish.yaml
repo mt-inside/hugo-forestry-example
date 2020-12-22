@@ -24,22 +24,16 @@ jobs:
         service_account_key: ${{ secrets.GCS_SA_KEY }}
         export_default_credentials: true
 
-    # Alternative would be an image containing hugo, and doing the build in that
-    - name: Install Hugo
-      run: |-
-        # The runner is 18.04, which has ANCIENT Hugo 0.40
-        sudo apt install wget
-        wget https://github.com/gohugoio/hugo/releases/download/v0.79.1/hugo_0.79.1_Linux-64bit.deb
-        sudo dpkg -i hugo_0.79.1_Linux-64bit.deb
-
     - name: Build
-      run: |-
-        hugo -b https://$GCS_BUCKET -s . -d public
+      uses: docker://forestryio/hugo:node12
+      env:
+        HUGO_VERSION: 0.79.1
+      with:
+        args: hugo -b https://$GCS_BUCKET -s . -d public
 
         # TODO parameteriese
 
     # TODO put build command into an npm script, use yarn run here and forestry (see forestry for command ref)
-    # TODO status badge
     # TODO Separate stages into jobs, depend, badges
     # TODO forestry image
     # TODO go home TODO go home TODO go home TODO go home
