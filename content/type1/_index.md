@@ -1,8 +1,1 @@
-+++
-
-+++
 Type 1 is a collection of really interesting pages
-
-List matter
-
-no u
