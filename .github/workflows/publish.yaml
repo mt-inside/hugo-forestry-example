@@ -10,10 +10,6 @@ jobs:
     name: Build and Publish to GCS
     runs-on: ubuntu-latest
 
-    env:
-      GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
-      GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
-
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -24,10 +20,9 @@ jobs:
         HUGO_VERSION: 0.79.1
       with:
         # Interestingly, a shell-style subst also works here, but it's not GH Actions doing it, so my theory is that it's passed verbatim to docker, but the entrypoint is bash, which evalates this string as a shell expression and does the expansion cause it's in the runner's env
-        args: hugo --enableGitInfo -b https://${{ secrets.GCS_BUCKET }} -s . -d public
+        args: build/build.sh ${{ secrets.GCS_BUCKET }}
 
-    # TODO put build command into an npm script, use yarn run here and forestry (see forestry for command ref)
-    # TODO Separate stages into jobs, depend, badges
+    # TODO put build command into an npm script, use yarn run here and forestry and make
 
     - name: Setup gcloud / gsutil
       uses: google-github-actions/setup-gcloud@v0.2.0
@@ -37,5 +32,7 @@ jobs:
         export_default_credentials: true
 
     - name: Deploy
+      env:
+        GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
       run: |-
         gsutil -m rsync -R public gs://$GCS_BUCKET

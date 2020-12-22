@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "preview": "build/preview.sh",
+    "build": "build/build.sh"
+  },
   "dependencies": {
     "jquery": "^3.5.1"
   }
