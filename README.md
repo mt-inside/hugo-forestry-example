@@ -8,13 +8,15 @@ Showcases:
 
 Setup:
 
-* Forestry setup is manual
+* Forestry
   * Sign up
   * Add a new site, type hugo, repo: your fork of this repo
-  * Preview setup
-    * _environment_: `HUGO + NODEJS 12`
-    * _install dependencies command_: yarn install
-    * _build command_: yarn run preview
+  * Forestry setup is manual
+    * UPDATE: I'm sure this is true. Forestry stores its config in the git repo, so I think if you aim it as this repo, it'll pick up the custom config.
+    * Preview setup
+      * _environment_: `HUGO + NODEJS 12`
+      * _install dependencies command_: yarn install
+      * _build command_: yarn run preview
 
 Notes
 
