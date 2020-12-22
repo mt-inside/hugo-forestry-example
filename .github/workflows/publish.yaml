@@ -11,18 +11,12 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      GCS_BUCKET: test.mt165.training
+      GCP_PROJECT: {{ secrets.GCP_PROJECT }}
+      GCS_BUCKET: {{ secrets.GCS_BUCKET }}
 
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-
-    - name: Setup gcloud / gsutil
-      uses: google-github-actions/setup-gcloud@v0.2.0
-      with:
-        project_id: domains-cceouond
-        service_account_key: ${{ secrets.GCS_SA_KEY }}
-        export_default_credentials: true
 
     - name: Build
       uses: docker://forestryio/hugo:node12
@@ -31,12 +25,15 @@ jobs:
       with:
         args: hugo -b https://$GCS_BUCKET -s . -d public
 
-        # TODO parameteriese
-
     # TODO put build command into an npm script, use yarn run here and forestry (see forestry for command ref)
     # TODO Separate stages into jobs, depend, badges
-    # TODO forestry image
-    # TODO go home TODO go home TODO go home TODO go home
+
+    - name: Setup gcloud / gsutil
+      uses: google-github-actions/setup-gcloud@v0.2.0
+      with:
+        project_id: $GCP_PROJECT
+        service_account_key: ${{ secrets.GCS_SA_KEY }}
+        export_default_credentials: true
 
     - name: Deploy
       run: |-
