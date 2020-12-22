@@ -40,6 +40,7 @@ jobs:
 
     # TODO put build command into an npm script, use yarn run here and forestry (see forestry for command ref)
     # TODO status badge
+    # TODO Separate stages into jobs, depend, badges
     # TODO forestry image
     # TODO go home TODO go home TODO go home TODO go home
 
