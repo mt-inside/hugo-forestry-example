@@ -10,30 +10,30 @@ jobs:
     name: Build and Publish to GCS
     runs-on: ubuntu-latest
 
+    env:
+      GCS_BUCKET: test.mt165.training
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: dbg
-      run: |-
-        echo "x${{secrets.GCS_SA_KEY}}x"
-
     - name: Setup gcloud / gsutil
-      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      uses: google-github-actions/setup-gcloud@v0.2.0
       with:
-        service_account_key: ${{ secrets.GCS_SA_KEY }}
         project_id: domains-cceouond
+        service_account_key: ${{ secrets.GCS_SA_KEY }}
         export_default_credentials: true
 
     - name: Build
       run: |-
-        mkdir public
-        echo "hello!" > public/index.html
+        hugo build -b https://$GCS_BUCKET -s . -d public
 
-    # TODO build
+        # TODO parameteriese
+
     # TODO put build command into an npm script, use yarn run here and forestry (see forestry for command ref)
     # TODO status badge
+    # TODO go home TODO go home TODO go home TODO go home
 
     - name: Deploy
       run: |-
-        gsutil -m rsync -R public gs://test.mt165.training
+        gsutil -m rsync -R public gs://$GCS_BUCKET
