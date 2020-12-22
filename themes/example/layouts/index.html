@@ -6,6 +6,7 @@ Uniquely, does not use <theme>/layouts/_default/baseof.html
 
 <html lang="en">
     <head>
+        {{ .Hugo.Generator }}
         {{- partial "head.html" . -}}
 
         {{ $one := resources.Get "src/one.ts" }}

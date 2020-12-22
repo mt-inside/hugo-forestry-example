@@ -7,6 +7,7 @@ Instead, just define a block in them called `main`
 
 <html lang="en">
     <head>
+        {{ .Hugo.Generator }}
         {{- partial "head.html" . -}}
     </head>
     <body>
