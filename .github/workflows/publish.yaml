@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      GCP_PROJECT: {{ secrets.GCP_PROJECT }}
-      GCS_BUCKET: {{ secrets.GCS_BUCKET }}
+      GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
+      GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
 
     steps:
     - name: Checkout
