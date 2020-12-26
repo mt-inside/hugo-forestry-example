@@ -19,8 +19,9 @@ jobs:
       env:
         HUGO_VERSION: 0.79.1
       with:
+        # Have to yarn install inside this container, because it's this step that needs node_modules, and it runs in a container, not a "native" action step, the host's software isn't available.
         # Interestingly, a shell-style subst also works here, but it's not GH Actions doing it, so my theory is that it's passed verbatim to docker, but the entrypoint is bash, which evalates this string as a shell expression and does the expansion cause it's in the runner's env
-        args: build/build.sh ${{ secrets.GCS_BUCKET }}
+        args: yarn install && build/build.sh ${{ secrets.GCS_BUCKET }}
 
     - name: Setup gcloud / gsutil
       uses: google-github-actions/setup-gcloud@v0.2.0
